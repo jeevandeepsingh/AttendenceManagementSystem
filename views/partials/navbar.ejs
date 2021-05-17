@@ -1,0 +1,25 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand">Employee Directory</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+        <div class="navbar-nav ">
+            <%if(currentUser) {%>
+                <a class="nav-link" href="/employee">Home</a>
+                <a class="nav-link" href="/employee/find">Find Employee</a>
+            <%}%>
+        </div>
+        
+        <div class="navbar-nav ml-auto">
+            <%if(!currentUser) {%>
+                <a class="nav-link" href="/login"> Login </a>
+            <%} else {%>
+                <a class="nav-link" href="/employee/<%= currentUser._id %>"> Profile </a>
+                <a class="nav-link" href="/logout"> Logout </a>
+                <% if(currentUser.designation === 'admin'){ %>
+                    <a class="nav-link" href="/register"> Registor </a>
+                <% } %>
+            <%}%>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,36 @@
+<% layout('layouts/boilerplate') %>
+<div class="container">
+       
+        <div class="row">
+                <nav class="navbar navbar-light bg-light mb-3" >          
+                        <form class="form-inline" action="/search" method="POST" >
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search User" aria-label="Search" name="username" required>
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                </nav>
+        </div>
+
+        <table class="table  table-hover table-striped mb-2">
+                <thead>
+                    <th>Employee ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Details</th>
+                </thead>
+                    <tbody>
+                        <% for(let user of users){ %>
+                            <tr>
+
+                                    <td> <%= user.eid  %></td>
+                                    <td> <%= user.username %> </td>
+                                    <td> <%= user.email %> </td>
+                                    <td> 
+                                        <a class="btn btn-outline-info" href="/employee/<%= user._id %>">View Details</a>
+                                    </td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+        </table>
+        
+        <a class="btn btn-outline-info mb-3" href="/employee">BACK</a>
+</div>

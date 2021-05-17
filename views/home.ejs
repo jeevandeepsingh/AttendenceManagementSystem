@@ -1,0 +1,39 @@
+<% layout('layouts/boilerplate') %>
+<div class="container">
+        <div class="row">
+            <div class="col-3">
+                <div class="col-md-5 mb-3">
+                    <form class="d-inline" action="/employee/markAttendance" method="POST"
+                        onclick=" return confirm('First punch of the day will be considered as Check-in and last as Check-out.');"><button
+                        class="btn btn-outline-success " style="width: 120px; height: 50px; padding: 5px 5px 50px 5px;">Mark Attendance</button>
+                    </form>
+                </div>
+                <div class="col-md-5 mb-3">
+                    <a class="btn btn-outline-primary" style="width: 120px; height: 45px; padding: 5px 5px 50px 5px;" href="/employee/approve">Approve Attendence</a>
+                </div>
+                
+            </div>
+            <div class="col-8">
+                <table class="table  table-hover table-striped mb-3">
+                    <thead>
+                        <th>DATE</th>
+                        <th>PUNCH-IN TIME</th>
+                        <th>PUNCH-OUT TIME</th>
+                        <th>STATUS</th>
+                    </thead>
+                        <tbody>
+                            <% for(let i = user.attendance.length-1 ; i >= 0 ; i--) {%>
+                                <tr>
+
+                                        <td> <%= user.attendance[i].date %></td>
+                                        <td> <%= user.attendance[i].checkin %> </td>
+                                        <td> <%= user.attendance[i].checkout %> </td>
+                                        <td> <%= user.attendance[i].status %> </td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                </table>
+            </div>
+        
+        </div>
+</div>

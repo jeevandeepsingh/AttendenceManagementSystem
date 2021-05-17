@@ -1,0 +1,152 @@
+<% layout('layouts/boilerplate') %>
+<div class="container">
+    <form action="/attendence" method="POST">
+        <div class="input-group mb-3">
+            <select class="custom-select" id="status" name="status">
+                <option selected>Choose Status</option>
+                <option value="ALL">ALL STATUS</option>
+                <option value="Pending">Pending</option>
+                <option value="Approved">Approved</option>
+                <option value="Rejected">Rejected</option>
+            </select>
+            <button type="submit" class="btn btn-primary mb-2">Search</button>
+
+        </div>
+    </form>
+ 
+
+    <table class="table  table-hover table-striped mb-3">
+        <thead>
+            <th>EMPLOYEE NAME</th>
+            <th>DATE</th>
+            <th>PUNCH-IN</th>
+            <th>PUNCH-OUT</th>
+            <th>TOTAL TIME</th>
+            <th> </th>
+            <th> </th>
+        </thead>
+
+        <% if(flag){ %>
+            <% for(let mentee of mentees){ %>
+                <% for(let attendence of mentee.attendance){ %>
+                    <% if(attendence.date !== date){ %>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <%= mentee.username %>
+                                </td>
+                                <td>
+                                    <%= attendence.date %>
+                                </td>
+                                <td>
+                                    <%= attendence.checkin %>
+                                </td>
+                                <td>
+                                    <%= attendence.checkout %>
+                                </td>
+                                <td>
+                                    <%= attendence.time %>
+                                </td>
+
+                                <% if( attendence.status === 'Pending'){ %>
+                                    <td>
+                                        <form action="/attendence/<%= attendence._id %>/rejected?_method=PUT" method="POST">
+                                            <button class="btn btn-outline-danger" style="width: 110px; height: 35px;"  >REJECT</a>       
+                                        </form>     
+                                    </td>
+                                    <td>
+                                        <form action="/attendence/<%= attendence._id %>/approved?_method=PUT" method="POST">
+                                            <button class="btn btn-outline-success " style="width: 110px; height: 35px;" >APPROVE</a>       
+                                        </form>  
+                                    </td>
+                                <% }else if(attendence.status === 'Approved') { %>
+                                    <td>
+                                        <form action="/attendence/<%= attendence._id %>/rejected?_method=PUT" method="POST">
+                                            <button class="btn btn-outline-danger" style="width: 110px; height: 35px;" disabled>REJECTED</a>       
+                                        </form>     
+                                    </td>
+                                    <td>
+                                        <form action="/attendence/<%= attendence._id %>/approved?_method=PUT" method="POST">
+                                            <button class="btn btn-success" style="width: 110px; height: 35px;" disabled>APPROVED</a>       
+                                        </form>  
+                                    </td>
+                                <%} else{ %>
+                                    <td>
+                                        <form action="/attendence/<%= attendence._id %>/rejected?_method=PUT" method="POST">
+                                            <button class="btn btn-danger" style="width: 110px; height: 35px;" disabled>REJECTED</a>       
+                                        </form>     
+                                    </td>
+                                    <td>
+                                        <form action="/attendence/<%= attendence._id %>/approved?_method=PUT" method="POST">
+                                            <button class="btn btn-outline-success" style="width: 110px; height: 35px;" disabled>APPROVED</a>       
+                                        </form>  
+                                    </td>
+                                <% } %>
+                            </tr>
+                        </tbody>
+                    <% } %>
+                <% } %>
+            <% } %>
+        </table>
+        <% }else {%>
+            <% for(let pos1 = 0 ; pos1 < attendences.length ; pos1++){ %>
+                <% for(let pos2 = 1 ; pos2 < attendences[pos1].length ; pos2++){ %>
+                    <% if(attendences[pos1][pos2].date !== date){ %>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <%= attendences[pos1][0].username %>
+                                </td>
+                                <td>
+                                    <%= attendences[pos1][pos2].date %>
+                                </td>
+                                <td>
+                                    <%= attendences[pos1][pos2].checkin %>
+                                </td>   
+                                <td>
+                                    <%= attendences[pos1][pos2].checkout %>
+                                </td>
+                                <td>
+                                    <%= attendences[pos1][pos2].time %>
+                                </td>
+                                <% if( status === 'Pending'){ %>
+                                    <td>
+                                        <form action="/attendence/<%= attendences[pos1][pos2]._id %>/rejected?_method=PUT" method="POST">
+                                            <button class="btn btn-outline-danger" style="width: 110px; height: 35px;"  >REJECT</a>       
+                                        </form>     
+                                    </td>
+                                    <td>
+                                        <form action="/attendence/<%= attendences[pos1][pos2]._id %>/approved?_method=PUT" method="POST">
+                                            <button class="btn btn-outline-success " style="width: 110px; height: 35px;" >APPROVE</a>       
+                                        </form>  
+                                    </td>
+                                <% }else if(status === 'Approved') { %>
+                                    <td>
+                                        <form>
+                                            <button class="btn btn-outline-danger" style="width: 110px; height: 35px;" disabled>REJECTED</a>       
+                                        </form>     
+                                    </td>
+                                    <td>
+                                        <form>
+                                            <button class="btn btn-success" style="width: 110px; height: 35px;" disabled>APPROVED</a>       
+                                        </form>  
+                                    </td>
+                                <%} else{ %>
+                                    <td>
+                                        <form>
+                                            <button class="btn btn-danger" style="width: 110px; height: 35px;" disabled>REJECTED</a>       
+                                        </form>     
+                                    </td>
+                                    <td>
+                                        <form>
+                                            <button class="btn btn-outline-success" style="width: 110px; height: 35px;" disabled>APPROVED</a>       
+                                        </form>  
+                                    </td>
+                                <% } %>
+                            </tr>
+                        </tbody>
+                    <% } %>
+                <% } %>
+            <% } %>
+        <% } %>
+</div>

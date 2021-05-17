@@ -1,0 +1,75 @@
+<% layout('layouts/boilerplate')%>
+<div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+            <div class="card shadow mb-2">
+                <img src="https://images.unsplash.com/photo-1571863533956-01c88e79957e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80"
+                    alt="" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">Register</h5>
+                    <form action="/register" method="POST" novalidate class="needs-validation">
+                        <div class="mb-3">
+                            <label class="form-label" for="eid">E-Id</label>
+                            <input class="form-control" type="number" id="eid" name="eid" value="<%=ID+1%>" required  autofocus>
+                            <div class="valid-feedback">
+                                Looks Good!
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="username">Username</label>
+                            <input class="form-control" type="text" id="username" name="username" required autofocus>
+                            <div class="valid-feedback">
+                                Looks Good!
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="email">Email</label>
+                            <input class="form-control" type="email" id="email" name="email" required>
+                            <div class="valid-feedback">
+                                Looks Good!
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="phoneno">Phoneno</label>
+                            <input class="form-control" type="number" id="phoneno" name="phoneno" required 
+                            min="1000000000" max="9999999999">
+                            <div class="valid-feedback">
+                                Looks Good!
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="designation">Designation</label>
+                            <select class="custom-select custom-select-lg mb-3" name="designation" id="designation">
+                                <option selected>Open this select Designation</option>
+                                <option value="admin">Admin</option>
+                                <option value="user">User</option>
+                              </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="password">Password</label>
+                            <input class="form-control" type="password" id="password" name="password" required>
+                            <div class="valid-feedback">
+                                Looks Good!
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="manager">SELECT MANAGER</label>
+                            <select class="custom-select custom-select-lg mb-3" name="manager" id="manager">
+                                <option selected>Open this select Manager</option>
+                                <% for(let user of users){ %>
+                                    <option value="<%=user._id%>"><%= user.username %></option>
+                                <% } %>
+                              </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <button class="btn btn-success btn-block">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <a class="btn btn-outline-info mb-3" style="height: 40px; width: 120px;" href="/employee/">BACK</a>
+        </div>
+    </div>
+</div>

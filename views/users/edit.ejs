@@ -1,0 +1,67 @@
+<% layout('layouts/boilerplate')%>
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h1 class="text-center">Edit Campground</h1>
+        <form action="/employee/<%=user._id%>?_method=PUT" method="POST" novalidate class="needs-validation" >
+            
+            <div class="mb-3">
+                <label class="form-label" for="eid">E-Id</label>
+                <input class="form-control" type="number" id="eid" name="eid" value="<%=user.eid %>" required>
+                <div class="valid-feedback">
+                    Looks Good!
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="title">Name</label>
+                <input class="form-control" type="text" id="username" name="username"
+                    value="<%=user.username %>" required>
+                <div class="valid-feedback">
+                    Looks Good!
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="email">Email</label>
+                <input class="form-control" type="email" id="email" name="email"
+                    value="<%=user.email %>" required>
+                <div class="valid-feedback">
+                    Looks Good!
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="phoneno">PH-no.</label>
+                <input class="form-control" type="number" id="phoneno" name="phoneno"
+                    value="<%=user.phoneno %>" required>
+                <div class="valid-feedback">
+                    Looks Good!
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="designation">Designation</label>
+                <select class="custom-select custom-select-lg mb-3" name="designation" id="designation" value="<%=user.designation %>" required>
+                    <option value="admin" <%= (user.designation === 'admin') ? 'selected' : '' %> >Admin</option>
+                    <option value="user" <%= (user.designation === 'user') ? 'selected' : '' %> >User</option>
+                  </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="manager">SELECT MANAGER</label>
+                <select class="custom-select custom-select-lg mb-3" name="manager" id="manager">
+                    <% for(let u of users){ %>
+                        <option value="<%=u._id%>" <%= (user.manager.username === u.username) ? 'selected' : '' %> > <%= u.username %></option>
+                    <% } %>
+                  </select>
+            </div>
+            
+            <div class="mb-3">
+                <button class="btn btn-outline-info">Update User</button>
+                <a class="btn btn-outline-info" href="/employee/<%= user._id%>">Back</a>
+                
+            </div>
+            
+        </form>
+    </div>
+</div>
